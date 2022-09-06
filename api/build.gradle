@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'ckk.net'
+            artifactId = 'ckk-api'
+            from components.java
+        }
+    }
+
+    repositories {
+        // publish to local directory
+        maven {
+            url = "${rootProject.buildDir}/m2repo"
+        }
+
+        // publish to remote artifactory
+        maven {
+            url = "https://zooplus.com/artifactory/"
+            credentials {
+                username = 'admin'
+                password = 'admin123'
+            }
+        }
+    }
+}

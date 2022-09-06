@@ -1,0 +1,4 @@
+rootProject.name = 'multi_modules'
+include 'api'
+include 'web'
+
